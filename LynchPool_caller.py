@@ -104,8 +104,8 @@ E=3*p_e/2
 
 p_m=all_counts[:,0]/np.sum(all_counts[:,0:2],axis=1)
 
-p_hat=p_m*(1.0-(2.0*E/3.0))-(E/3.0)/1-(4*E/3)
-
+#p_hat=p_m*(1.0-(2.0*E/3.0))-(E/3.0)/1-(4*E/3) #old version causes slight error for sites with reads from 3 alleles
+p_hat=(p_m*(1.0-(2.0*E/3.0))-(E/3.0))/(1.0-(4.0*E/3.0))
 ###second iteration
 a=p_hat>0.9
 b=depth<min_DP
@@ -120,8 +120,8 @@ for g in range(len(E)):
     if p_hat[g]>0.9:
         E[g]=E_mean
 
-p_hat2=p_m*(1.0-(2.0*E/3.0))-(E/3.0)/1-(4*E/3)
-
+p_hat2=p_m*(1.0-(2.0*E/3.0))-(E/3.0)/1-(4*E/3)  #old version causes slight error for sites with reads from 3 alleles
+p_hat2=(p_m*(1.0-(2.0*E/3.0))-(E/3.0))/(1.0-(4.0*E/3.0))
 
 
 outfile=open(filenameout,'w')
